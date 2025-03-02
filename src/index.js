@@ -25,7 +25,7 @@ client.on('messageCreate', message => {
             .setTitle('Hello World!')
             .setDescription('This is a test message.')
             .setTimestamp()
-            .setFooter({ text: 'Bot by YourName' });
+            .setFooter({ text: '0-0' });
         message.channel.send({ embeds: [embed] });
     }
 });
@@ -37,7 +37,7 @@ client.on('messageCreate', message => {
             .setTitle('Hoy!')
             .setDescription(`hoy ka din, ${message.author}! kabadengan mo na naman`)
             .setTimestamp()
-            .setFooter({ text: 'Bot by YourName' });
+            .setFooter({ text: '0-0' });
         message.channel.send({ embeds: [embed] });
     }
 });
@@ -52,9 +52,9 @@ client.on('messageCreate', message => {
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${mentionedUser}!`)
-                .setImage('https://tenor.com/view/donkeh-gif-5283271841714383219')
+                .setImage('https://pbs.twimg.com/media/DTeAa4fUQAEr38F.jpg')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
         } else if (mentionedRole) {
             const members = mentionedRole.members.map(member => member.user).join(', ');
@@ -62,9 +62,9 @@ client.on('messageCreate', message => {
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${members}!`)
-                .setImage('https://tenor.com/view/donkeh-gif-5283271841714383219')
+                .setImage('https://pbs.twimg.com/media/DTeAa4fUQAEr38F.jpg')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
@@ -72,7 +72,7 @@ client.on('messageCreate', message => {
                 .setTitle('Error')
                 .setDescription('Please mention a user or a role to greet.')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
         }
     }
@@ -88,7 +88,7 @@ client.on('messageCreate', message => {
                 .setTitle('Error')
                 .setDescription('Please mention a user to play coinflip with.')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
             return;
         }
@@ -101,7 +101,7 @@ client.on('messageCreate', message => {
                     .setTitle('Coinflip Result')
                     .setDescription(result === 'win' ? `You win, ${message.author}! \nYou lose, ${mentionedUser}!` : `You lose, ${message.author}! You win, ${mentionedUser}!`)
                     .setTimestamp()
-                    .setFooter({ text: 'Bot by YourName' });
+                    .setFooter({ text: '0-0' });
                 message.channel.send({ embeds: [embed] });
             }, 3000);
         });
@@ -119,7 +119,7 @@ client.on('messageCreate', async message => {
                 .setTitle('Error')
                 .setDescription('Please provide a city.')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
             return;
         }
@@ -134,7 +134,7 @@ client.on('messageCreate', async message => {
                     .setTitle('Error')
                     .setDescription('Could not find the city. Please make sure the city name is correct.')
                     .setTimestamp()
-                    .setFooter({ text: 'Bot by YourName' });
+                    .setFooter({ text: '0-0' });
                 message.channel.send({ embeds: [embed] });
                 return;
             }
@@ -163,7 +163,7 @@ client.on('messageCreate', async message => {
                 .setTitle('Error')
                 .setDescription('Could not retrieve weather data. Please try again later.')
                 .setTimestamp()
-                .setFooter({ text: 'Bot by YourName' });
+                .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
         }
     }
