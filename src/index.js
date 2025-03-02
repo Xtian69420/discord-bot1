@@ -80,16 +80,25 @@ client.on('messageCreate', async message => {
             return;
         }
 
-        const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
-        const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        const locationUrl = `https://www.metaweather.com/api/location/search/?query=${city}`;
 
         try {
-            const response = await axios.get(url);
-            const weather = response.data;
-            const weatherInfo = `The weather in ${weather.name} is ${weather.weather[0].description} with a temperature of ${weather.main.temp}°C.`;
+            const locationResponse = await axios.get(locationUrl);
+            if (locationResponse.data.length === 0) {
+                message.channel.send('Could not find the city. Please make sure the city name is correct.');
+                return;
+            }
+
+            const woeid = locationResponse.data[0].woeid;
+            const weatherUrl = `https://www.metaweather.com/api/location/${woeid}/`;
+
+            const weatherResponse = await axios.get(weatherUrl);
+            const weather = weatherResponse.data.consolidated_weather[0];
+            const weatherInfo = `The weather in ${locationResponse.data[0].title} is ${weather.weather_state_name} with a temperature of ${weather.the_temp.toFixed(1)}°C.`;
             message.channel.send(weatherInfo);
         } catch (error) {
-            message.channel.send('Could not retrieve weather data. Please make sure the city name is correct.');
+            console.error('Error fetching weather data:', error);
+            message.channel.send('Could not retrieve weather data. Please try again later.');
         }
     }
 });
