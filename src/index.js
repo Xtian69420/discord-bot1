@@ -18,19 +18,19 @@ app.get("/", (req, res) => {
   });  
 
 client.on('messageCreate', message => {
-    if (message.content === '!trb') {
+    if (message.content === '!t') {
         message.channel.send('Hello World!');
     }
 });
 
 client.on('messageCreate', message => {
-  if (message.content === '!trb hoy') {
+  if (message.content === '!t hoy') {
       message.channel.send(`hoy ka din, ${message.author}! kabadengan mo na naman`);
   }
 });
 
 client.on('messageCreate', message => {
-  if (message.content.startsWith('!trb greet')) {
+  if (message.content.startsWith('!t greet')) {
       const mentionedUser = message.mentions.users.first();
       const mentionedRole = message.mentions.roles.first();
 
@@ -48,7 +48,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('messageCreate', message => {
-  if (message.content.startsWith('!trb coinflip')) {
+  if (message.content.startsWith('!t coinflip')) {
       const mentionedUser = message.mentions.users.first();
 
       if (!mentionedUser) {
