@@ -18,6 +18,19 @@ app.get("/", (req, res) => {
     res.send("Hello world!");
 });
 
+const imageLinks = [
+    'https://pbs.twimg.com/media/DTeAa4fUQAEr38F.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-yPPVZY5sj_fpx422eR_qBl7mDKBOnM0K88iW4SDS8oiDLZFqbDZSytW&s=10', 
+    'https://media.tenor.com/T2sgUDZt6CcAAAAM/hi-hello.gif', 'https://media.tenor.com/M6hQzq3Ay-sAAAAM/cute-cat-cute.gif', 
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHbKrPfgB0obVs5wmUtS8EkoWFFlLHUEmAz5VTMVE_oSOMF68awVqcZXo&s=10', 
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyVis4FCic_wYwNdNXTirjlLa1t2bdv91Wh4j9tN-YT3jnVZwbDsQIThk&s=10'
+];
+
+function getRandomImage() {
+    const randomIndex = Math.floor(Math.random() * imageLinks.length);
+    return imageLinks[randomIndex];
+}
+
 client.on('messageCreate', message => {
     if (message.content === '!t') {
         const embed = new EmbedBuilder()
@@ -46,13 +59,14 @@ client.on('messageCreate', message => {
     if (message.content.startsWith('!t greet')) {
         const mentionedUser = message.mentions.users.first();
         const mentionedRole = message.mentions.roles.first();
+        const randomImage = getRandomImage();
 
         if (mentionedUser) {
             const embed = new EmbedBuilder()
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${mentionedUser}!`)
-                .setImage('https://pbs.twimg.com/media/DTeAa4fUQAEr38F.jpg')
+                .setImage(randomImage)
                 .setTimestamp()
                 .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
@@ -62,7 +76,7 @@ client.on('messageCreate', message => {
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${members}!`)
-                .setImage('https://pbs.twimg.com/media/DTeAa4fUQAEr38F.jpg')
+                .setImage(randomImage)
                 .setTimestamp()
                 .setFooter({ text: '0-0' });
             message.channel.send({ embeds: [embed] });
