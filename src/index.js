@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, MessageEmbed } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const express = require('express');
 const axios = require('axios');
 const app = express();
@@ -20,24 +20,24 @@ app.get("/", (req, res) => {
 
 client.on('messageCreate', message => {
     if (message.content === '!t') {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('Hello World!')
             .setDescription('This is a test message.')
             .setTimestamp()
-            .setFooter('Bot by YourName');
+            .setFooter({ text: 'Bot by YourName' });
         message.channel.send({ embeds: [embed] });
     }
 });
 
 client.on('messageCreate', message => {
     if (message.content === '!t hoy') {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#ff9900')
             .setTitle('Hoy!')
             .setDescription(`hoy ka din, ${message.author}! kabadengan mo na naman`)
             .setTimestamp()
-            .setFooter('Bot by YourName');
+            .setFooter({ text: 'Bot by YourName' });
         message.channel.send({ embeds: [embed] });
     }
 });
@@ -48,31 +48,31 @@ client.on('messageCreate', message => {
         const mentionedRole = message.mentions.roles.first();
 
         if (mentionedUser) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${mentionedUser}!`)
                 .setImage('https://tenor.com/view/donkeh-gif-5283271841714383219')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
         } else if (mentionedRole) {
             const members = mentionedRole.members.map(member => member.user).join(', ');
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#00ff99')
                 .setTitle('Greeting')
                 .setDescription(`Hello, ${members}!`)
                 .setImage('https://tenor.com/view/donkeh-gif-5283271841714383219')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
         } else {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setTitle('Error')
                 .setDescription('Please mention a user or a role to greet.')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
         }
     }
@@ -83,12 +83,12 @@ client.on('messageCreate', message => {
         const mentionedUser = message.mentions.users.first();
 
         if (!mentionedUser) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setTitle('Error')
                 .setDescription('Please mention a user to play coinflip with.')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
             return;
         }
@@ -96,12 +96,12 @@ client.on('messageCreate', message => {
         message.channel.send('Flipping the hell out of the coins...').then(() => {
             setTimeout(() => {
                 const result = Math.random() < 0.5 ? 'win' : 'lose';
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor(result === 'win' ? '#00ff00' : '#ff0000')
                     .setTitle('Coinflip Result')
                     .setDescription(result === 'win' ? `You win, ${message.author}! \nYou lose, ${mentionedUser}!` : `You lose, ${message.author}! You win, ${mentionedUser}!`)
                     .setTimestamp()
-                    .setFooter('Bot by YourName');
+                    .setFooter({ text: 'Bot by YourName' });
                 message.channel.send({ embeds: [embed] });
             }, 3000);
         });
@@ -114,12 +114,12 @@ client.on('messageCreate', async message => {
         const city = args.slice(2).join(' ');
 
         if (!city) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setTitle('Error')
                 .setDescription('Please provide a city.')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
             return;
         }
@@ -129,12 +129,12 @@ client.on('messageCreate', async message => {
         try {
             const locationResponse = await axios.get(locationUrl);
             if (locationResponse.data.length === 0) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor('#ff0000')
                     .setTitle('Error')
                     .setDescription('Could not find the city. Please make sure the city name is correct.')
                     .setTimestamp()
-                    .setFooter('Bot by YourName');
+                    .setFooter({ text: 'Bot by YourName' });
                 message.channel.send({ embeds: [embed] });
                 return;
             }
@@ -144,24 +144,26 @@ client.on('messageCreate', async message => {
 
             const weatherResponse = await axios.get(weatherUrl);
             const weather = weatherResponse.data.consolidated_weather[0];
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#0099ff')
                 .setTitle(`Weather in ${locationResponse.data[0].title}`)
                 .setDescription(`${weather.weather_state_name}`)
-                .addField('Temperature', `${weather.the_temp.toFixed(1)}°C`, true)
-                .addField('Humidity', `${weather.humidity}%`, true)
-                .addField('Wind Speed', `${weather.wind_speed.toFixed(1)} mph`, true)
+                .addFields(
+                    { name: 'Temperature', value: `${weather.the_temp.toFixed(1)}°C`, inline: true },
+                    { name: 'Humidity', value: `${weather.humidity}%`, inline: true },
+                    { name: 'Wind Speed', value: `${weather.wind_speed.toFixed(1)} mph`, inline: true }
+                )
                 .setTimestamp()
-                .setFooter('Weather data provided by MetaWeather');
+                .setFooter({ text: 'Weather data provided by MetaWeather' });
             message.channel.send({ embeds: [embed] });
         } catch (error) {
             console.error('Error fetching weather data:', error);
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setTitle('Error')
                 .setDescription('Could not retrieve weather data. Please try again later.')
                 .setTimestamp()
-                .setFooter('Bot by YourName');
+                .setFooter({ text: 'Bot by YourName' });
             message.channel.send({ embeds: [embed] });
         }
     }
