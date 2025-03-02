@@ -23,7 +23,8 @@ const imageLinks = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-yPPVZY5sj_fpx422eR_qBl7mDKBOnM0K88iW4SDS8oiDLZFqbDZSytW&s=10', 
     'https://media.tenor.com/T2sgUDZt6CcAAAAM/hi-hello.gif', 'https://media.tenor.com/M6hQzq3Ay-sAAAAM/cute-cat-cute.gif', 
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHbKrPfgB0obVs5wmUtS8EkoWFFlLHUEmAz5VTMVE_oSOMF68awVqcZXo&s=10', 
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyVis4FCic_wYwNdNXTirjlLa1t2bdv91Wh4j9tN-YT3jnVZwbDsQIThk&s=10'
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyVis4FCic_wYwNdNXTirjlLa1t2bdv91Wh4j9tN-YT3jnVZwbDsQIThk&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUN6gouAccx471rOGOS6evTqc2133y04invAg1H-UGxuhJFYarclhhzJA&s=10'
 ];
 
 function getRandomImage() {
