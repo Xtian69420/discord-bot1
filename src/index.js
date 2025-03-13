@@ -123,66 +123,7 @@ client.on('messageCreate', message => {
     }
 });
 
-client.on('messageCreate', async message => {
-    if (message.content.startsWith('!t weather')) {
-        const args = message.content.split(' ');
-        const city = args.slice(2).join(' ');
 
-        if (!city) {
-            const embed = new EmbedBuilder()
-                .setColor('#ff0000')
-                .setTitle('Error')
-                .setDescription('Please provide a city.')
-                .setTimestamp()
-                .setFooter({ text: '0-0' });
-            message.channel.send({ embeds: [embed] });
-            return;
-        }
-
-        const locationUrl = `https://www.metaweather.com/api/location/search/?query=${city}`;
-
-        try {
-            const locationResponse = await axios.get(locationUrl);
-            if (locationResponse.data.length === 0) {
-                const embed = new EmbedBuilder()
-                    .setColor('#ff0000')
-                    .setTitle('Error')
-                    .setDescription('Could not find the city. Please make sure the city name is correct.')
-                    .setTimestamp()
-                    .setFooter({ text: '0-0' });
-                message.channel.send({ embeds: [embed] });
-                return;
-            }
-
-            const woeid = locationResponse.data[0].woeid;
-            const weatherUrl = `https://www.metaweather.com/api/location/${woeid}/`;
-
-            const weatherResponse = await axios.get(weatherUrl);
-            const weather = weatherResponse.data.consolidated_weather[0];
-            const embed = new EmbedBuilder()
-                .setColor('#0099ff')
-                .setTitle(`Weather in ${locationResponse.data[0].title}`)
-                .setDescription(`${weather.weather_state_name}`)
-                .addFields(
-                    { name: 'Temperature', value: `${weather.the_temp.toFixed(1)}°C`, inline: true },
-                    { name: 'Humidity', value: `${weather.humidity}%`, inline: true },
-                    { name: 'Wind Speed', value: `${weather.wind_speed.toFixed(1)} mph`, inline: true }
-                )
-                .setTimestamp()
-                .setFooter({ text: 'Weather data provided by MetaWeather' });
-            message.channel.send({ embeds: [embed] });
-        } catch (error) {
-            console.error('Error fetching weather data:', error);
-            const embed = new EmbedBuilder()
-                .setColor('#ff0000')
-                .setTitle('Error')
-                .setDescription('Could not retrieve weather data. Please try again later.')
-                .setTimestamp()
-                .setFooter({ text: '0-0' });
-            message.channel.send({ embeds: [embed] });
-        }
-    }
-});
 
 client.login(process.env.DISCORD_BOT_TOKEN).catch(err => {
     console.error('Failed to login:', err);
