@@ -1,7 +1,5 @@
 # Discord Bot Project
 
-This project is a simple Discord bot that responds with "Hello World" when the command `!trb` is issued.
-
 ## Prerequisites
 
 - Node.js (version 16.0.0 or higher)
@@ -45,4 +43,4 @@ This project is a simple Discord bot that responds with "Hello World" when the c
 
 ## Usage
 
-Once the bot is running, you can type `!trb` in any text channel where the bot has access, and it will respond with "Hello World".
+Once the bot is running, you can type `!t` in any text channel where the bot has access, and it will respond with "Hello World".
