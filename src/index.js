@@ -135,8 +135,6 @@ client.on('messageCreate', message => {
     }
 });
 
-
-
 client.login(process.env.DISCORD_BOT_TOKEN).catch(err => {
     console.error('Failed to login:', err);
 });
